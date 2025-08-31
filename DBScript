@@ -26,3 +26,10 @@ CREATE TABLE transactions (
     transactionprice NUMBER(10, 2) NOT NULL,
     transactiondate DATE NOT NULL
 );
+
+ALTER TABLE transactions
+ADD CONSTRAINT fk_stock FOREIGN KEY (stockid) REFERENCES stock(stockid);
+
+ALTER TABLE transactions
+ADD CONSTRAINT fk_customer FOREIGN KEY (customerid) REFERENCES customer(customerid);
+
