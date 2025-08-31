@@ -1,0 +1,28 @@
+-- STOCK table
+CREATE TABLE Stock (
+    StockId         NUMBER PRIMARY KEY,
+    StockName       VARCHAR2(100) NOT NULL,
+    StockPrice      NUMBER(12,2) NOT NULL,
+    ListingPrice    NUMBER(12,2) NOT NULL,
+    ListingDate     DATE NOT NULL,
+    ListedExchange  VARCHAR2(100) NOT NULL
+);
+
+-- CUSTOMER table
+CREATE TABLE Customer (
+    CustomerId      NUMBER PRIMARY KEY,
+    FirstName       VARCHAR2(100) NOT NULL,
+    LastName        VARCHAR2(100) NOT NULL,
+    MobileNumber    VARCHAR2(20),
+    Email           VARCHAR2(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE transactions (
+    transactionid NUMBER PRIMARY KEY,
+    stockid NUMBER NOT NULL,
+    customerid NUMBER NOT NULL,
+    transactiontype VARCHAR2(10) NOT NULL, -- e.g. 'BUY' or 'SELL'
+    stockquantity NUMBER NOT NULL,
+    transactionprice NUMBER(10, 2) NOT NULL,
+    transactiondate DATE NOT NULL
+);
