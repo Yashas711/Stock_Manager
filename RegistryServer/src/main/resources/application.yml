@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: RegistryServer
+#Tomcat Details
+
+server:
+  port: 8761
+  
+#Euraka related configeration
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    fetch-registry: true
+    register-with-eureka: true 
+  server:
+    enable-self-preservation: false
