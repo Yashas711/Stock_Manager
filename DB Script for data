@@ -1,0 +1,28 @@
+INSERT ALL
+  INTO Stock (StockId, StockName, StockPrice, ListingPrice, ListingDate, ListedExchange) VALUES (1, 'Reliance Industries', 2500.00, 2250.00, TO_DATE('15-06-2020', 'DD-MM-YYYY'), 'NSE')
+  INTO Stock (StockId, StockName, StockPrice, ListingPrice, ListingDate, ListedExchange) VALUES (2, 'Tata Motors', 720.50, 650.00, TO_DATE('12-04-2019', 'DD-MM-YYYY'), 'BSE')
+  INTO Stock (StockId, StockName, StockPrice, ListingPrice, ListingDate, ListedExchange) VALUES (3, 'Infosys', 1755.25, 1500.00, TO_DATE('21-09-2018', 'DD-MM-YYYY'), 'NSE')
+  INTO Stock (StockId, StockName, StockPrice, ListingPrice, ListingDate, ListedExchange) VALUES (4, 'HDFC Bank', 1634.10, 1400.00, TO_DATE('30-08-2017', 'DD-MM-YYYY'), 'BSE')
+  INTO Stock (StockId, StockName, StockPrice, ListingPrice, ListingDate, ListedExchange) VALUES (5, 'Asian Paints', 3372.00, 3200.00, TO_DATE('05-11-2021', 'DD-MM-YYYY'), 'NSE')
+  INTO Stock (StockId, StockName, StockPrice, ListingPrice, ListingDate, ListedExchange) VALUES (6, 'ITC Limited', 468.30, 400.00, TO_DATE('10-02-2016', 'DD-MM-YYYY'), 'BSE')
+  INTO Stock (StockId, StockName, StockPrice, ListingPrice, ListingDate, ListedExchange) VALUES (7, 'Bharti Airtel', 985.60, 950.00, TO_DATE('19-07-2015', 'DD-MM-YYYY'), 'NSE')
+  INTO Stock (StockId, StockName, StockPrice, ListingPrice, ListingDate, ListedExchange) VALUES (8, 'Larsen & Toubro', 3264.70, 3000.00, TO_DATE('02-01-2022', 'DD-MM-YYYY'), 'BSE')
+  INTO Stock (StockId, StockName, StockPrice, ListingPrice, ListingDate, ListedExchange) VALUES (9, 'State Bank India', 578.40, 550.00, TO_DATE('14-08-2010', 'DD-MM-YYYY'), 'NSE')
+  INTO Stock (StockId, StockName, StockPrice, ListingPrice, ListingDate, ListedExchange) VALUES (10, 'Maruti Suzuki', 9755.60, 9500.00, TO_DATE('22-05-2013', 'DD-MM-YYYY'), 'BSE')
+SELECT * FROM dual;
+
+
+
+-- Insert 10 sample customers
+INSERT ALL
+  INTO customer (customerid, firstname, lastname, mobilenumber, email) VALUES (1, 'John', 'Doe', '1234567890', 'john.doe@example.com')
+  INTO customer (customerid, firstname, lastname, mobilenumber, email) VALUES (2, 'Jane', 'Smith', '2345678901', 'jane.smith@example.com')
+  INTO customer (customerid, firstname, lastname, mobilenumber, email) VALUES (3, 'Michael', 'Johnson', '3456789012', 'michael.johnson@example.com')
+  INTO customer (customerid, firstname, lastname, mobilenumber, email) VALUES (4, 'Emily', 'Davis', '4567890123', 'emily.davis@example.com')
+  INTO customer (customerid, firstname, lastname, mobilenumber, email) VALUES (5, 'William', 'Brown', '5678901234', 'william.brown@example.com')
+  INTO customer (customerid, firstname, lastname, mobilenumber, email) VALUES (6, 'Olivia', 'Jones', '6789012345', 'olivia.jones@example.com')
+  INTO customer (customerid, firstname, lastname, mobilenumber, email) VALUES (7, 'James', 'Garcia', '7890123456', 'james.garcia@example.com')
+  INTO customer (customerid, firstname, lastname, mobilenumber, email) VALUES (8, 'Sophia', 'Martinez', '8901234567', 'sophia.martinez@example.com')
+  INTO customer (customerid, firstname, lastname, mobilenumber, email) VALUES (9, 'Benjamin', 'Rodriguez', '9012345678', 'benjamin.rodriguez@example.com')
+  INTO customer (customerid, firstname, lastname, mobilenumber, email) VALUES (10, 'Isabella', 'Wilson', '0123456789', 'isabella.wilson@example.com')
+SELECT * FROM dual;
