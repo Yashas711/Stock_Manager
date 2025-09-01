@@ -47,7 +47,6 @@
 | `user-service`           | Buy/sell stocks and view user portfolio          |
 | `stock-service`          | Stock registry and listing                       |
 | `transaction-service`    | Records of buy/sell actions                      |
-| `price-fluctuation-service` | Automated/random stock price updates         |
 
 ---
 
