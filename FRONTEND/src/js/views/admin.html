@@ -1,0 +1,193 @@
+<style>
+  .form-panel {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(115, 101, 101, 0.815);
+    font-family: 'Segoe UI', sans-serif;
+    max-width: 600px;
+    margin: auto;
+    margin-top: 2em;
+  }
+
+  .page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-image: url("../../css/images/bg1.jpg");
+    /* Background color for center */
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  /* Limit and center inner content */
+  #tabs-container {
+    width: 80%;
+    max-width: 1000px;
+    min-height: 100vh;
+    background: white;
+    /* Background for form panel container */
+    padding: 2em;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Headings */
+  .form-panel h2 {
+    margin-bottom: 16px;
+    font-size: 1.5em;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+  }
+
+  /* Form layout */
+  .form-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Input fields */
+  .form-panel input {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+
+  /* Input focus effect */
+  .form-panel input:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 6px rgb(68, 68, 68);
+  }
+
+  /* Submit button */
+  .form-panel button {
+    align-self: flex-end;
+    padding: 10px 20px;
+    background-color: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .thick-border {
+    border: 2px solid #000000;
+    border-radius: 5px;
+    /* or any color you prefer */
+  }
+
+  /* Button hover effect */
+  .form-panel button:hover {
+    background-color: #00a914;
+  }
+
+  /* Base styling for all tab buttons */
+</style>
+<div class="page-wrapper">
+
+  <div class="oj-flex oj-sm-padding-4x" id="tabs-container">
+
+
+    <div class="oj-flex-item oj-sm-12">
+
+      <!-- Tab Buttons -->
+      <div class="oj-flex-item oj-sm-12" style="display: flex; justify-content: space-between; align-items: center;">
+
+        <!-- Tabs (left side) -->
+        <div>
+          <oj-bind-for-each data="[[tabs]]">
+            <template>
+              <oj-button chroming="outlined"
+                :class="[[selectedTab() === $current.data.id ? 'selected-tab oj-sm-margin-1x thick-border' : 'oj-sm-margin-1x']]"
+                on-oj-action="[[() => selectedTab($current.data.id)]]">
+                <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+              </oj-button>
+            </template>
+          </oj-bind-for-each>
+        </div>
+
+        <!-- Logout (right side) -->
+        <div>
+          <oj-bind-if>
+            <oj-button chroming="solid" on-oj-action="[[handleLogout]]">
+              Logout
+            </oj-button>
+          </oj-bind-if>
+        </div>
+      </div>
+
+
+
+      <!-- Add Stock -->
+      <oj-bind-if test="[[selectedTab() === 'add']]">
+        <div class="form-panel">
+          <h2>Add Stock</h2>
+          <form class="form-items" data-bind="submit: addStock"> <!-- <input type="text" placeholder="Stock Name" />
+            <input type="text" placeholder="Stock Exchange" />
+
+            <input type="Number" placeholder="Stock Price" />
+            <input type="Number" placeholder="Stock Volume" /> -->
+
+            <input type="text" placeholder="Stock Name" data-bind="value: newStock.stockName" />
+            <input type="text" placeholder="Stock Exchange" data-bind="value: newStock.listedExchange" />
+
+            <input type="number" placeholder="Stock Price" data-bind="value: newStock.stockPrice" />
+
+            <button type="submit">Add Stock</button>
+          </form>
+        </div>
+      </oj-bind-if>
+
+      <!-- Update Stock -->
+      <oj-bind-if test="[[selectedTab() === 'update']]">
+        <div class="form-panel">
+          <h2>Update Stock</h2>
+          <form data-bind="submit: updateStock">
+            <input type="text" placeholder="Stock ID" data-bind="value: updatedStock.stockId" />
+
+            <input type="text" placeholder="Stock Name" data-bind="value: updatedStock.stockName" />
+            <input type="text" placeholder="Stock Exchange" data-bind="value: updatedStock.listedExchange" />
+            <input type="number" placeholder="Stock Listed Price" data-bind="value: updatedStock.listingPrice" />
+            <input type="number" placeholder="Current Stock Price" data-bind="value: updatedStock.stockPrice" />
+            <input type="number" placeholder="Stock Volume" data-bind="value: updatedStock.stockVolume" />
+            <button type="submit">Update Stock</button>
+          </form>
+        </div>
+      </oj-bind-if>
+
+
+      <!-- Delete Stock -->
+      <oj-bind-if test="[[selectedTab() === 'deleteStock']]">
+        <div class="form-panel">
+          <h2>Delete Stock</h2>
+          <form data-bind="submit: deleteStock">
+            <input type="number" placeholder="Stock Id" data-bind="value: stockIdToDelete" />
+            <button type="submit">Delete Stock</button>
+          </form>
+        </div>
+      </oj-bind-if>
+
+      <!-- Delete Customer -->
+      <oj-bind-if test="[[selectedTab() === 'deleteCustomer']]">
+        <div class="form-panel">
+          <h2>Delete Customer</h2>
+          <form data-bind="submit: deleteCustomer">
+            <input type="text" placeholder="Customer ID" data-bind="value: customerIdToDelete" />
+            <button type="submit">Delete Customer</button>
+          </form>
+        </div>
+      </oj-bind-if>
+    </div>
+  </div>
+</div>

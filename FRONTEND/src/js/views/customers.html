@@ -1,0 +1,417 @@
+<style>
+  .form-panel {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(115, 101, 101, 0.815);
+    font-family: 'Segoe UI', sans-serif;
+    margin: auto;
+    margin-top: 2em;
+    max-width: 900px;
+  }
+
+  .customer-wrapper {
+    background-image: url("../../css/images/bg1.jpg");
+    /* Background color for center */
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  #tabs-container {
+    max-width: 1000px;
+    margin: auto;
+    min-height: 86vh;
+    background-color: #ffffff;
+
+  }
+
+  /* Headings */
+  .form-panel h2 {
+    margin-bottom: 16px;
+    font-size: 1.5em;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+  }
+
+  /* Form layout */
+  .form-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Input fields */
+  .form-panel input {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+
+  /* Input focus effect */
+  .form-panel input:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 6px rgb(68, 68, 68);
+  }
+
+  /* Submit button */
+  .form-panel button {
+    align-self: flex-end;
+    padding: 10px 20px;
+    background-color: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .thick-border {
+    border: 2px solid #000000;
+    border-radius: 5px;
+    /* or any color you prefer */
+  }
+
+  /* Button hover effect */
+  .form-panel button:hover {
+    background-color: #00a914;
+  }
+
+  .transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .table-header .header-cell {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    padding: 10px;
+  }
+
+  .table-body .data-row:hover {
+    background-color: #e6f7ff;
+  }
+
+  .data-cell {
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+
+  .buy-row {
+    background-color: #e6ffe6;
+    /* light green */
+    color: #006400;
+    /* dark green text */
+  }
+
+  .sell-row {
+    background-color: #ffe6e6;
+    /* light red */
+    color: #8B0000;
+    /* dark red text */
+  }
+
+  /* Wrapper for profile section */
+  /* .profile-container {
+  background-color: #fdfdfd;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 800px;
+  margin: auto;
+} */
+
+  .profile-card {
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    padding: 3em;
+    margin: auto;
+
+  }
+
+  .profile-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #2c3e50;
+  }
+
+  .profile-btn {
+    background-color: #070707;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .profile-btn:hover {
+    background-color: #006b02;
+  }
+
+  .profile-field {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-field label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #34495e;
+  }
+
+  .profile-field input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .profile-field input:focus {
+    border-color: #0072c6;
+    outline: none;
+  }
+
+  .password-edit input {
+    margin-top: 8px;
+  }
+
+
+  /* Base styling for all tab buttons */
+</style>
+<div class="customer-wrapper">
+  <div class="oj-flex oj-sm-padding-4x" id="tabs-container">
+
+
+    <div class="oj-flex-item oj-sm-12">
+
+      <div class="oj-flex-item oj-sm-12" style="display:flex; justify-content:space-between; align-items:center;">
+        <!-- Tabs (left) -->
+        <div>
+          <oj-bind-for-each data="[[tabs]]">
+            <template>
+              <oj-button chroming="outlined"
+                :class="[[selectedTab() === $current.data.id ? 'selected-tab oj-sm-margin-1x thick-border' : 'oj-sm-margin-1x']]"
+                on-oj-action="[[() => selectedTab($current.data.id)]]">
+                <oj-bind-text value="[[$current.data.label]]"></oj-bind-text>
+              </oj-button>
+            </template>
+          </oj-bind-for-each>
+        </div>
+        <!-- Logout (right) -->
+        <div>
+
+          <button class="profile-btn" data-bind="click:handleLogout">
+            Logout
+          </button>
+
+        </div>
+      </div>
+
+
+
+      <!-- Add Stock -->
+      <oj-bind-if test="[[selectedTab() === 'transaction-history']]">
+        <div class="form-panel">
+          <h2>Transaction History</h2>
+          <table class="transaction-table">
+            <thead class="table-header">
+              <tr class="header-row">
+                <th class="header-cell">Transaction ID</th>
+                <th class="header-cell">Stock ID</th>
+                <th class="header-cell">Type</th>
+                <th class="header-cell">Quantity</th>
+                <th class="header-cell">Amount</th>
+
+                <th class="header-cell">Date</th>
+                <th class="header-cell">Time</th>
+              </tr>
+            </thead>
+            <tbody class="table-body" data-bind="foreach: transactions">
+              <tr class="data-row" data-bind="css: { 'buy-row': type === 'BUY', 'sell-row': type === 'SELL' }">
+                <td class="data-cell" data-bind="text: transactionId"></td>
+                <td class="data-cell" data-bind="text: stockId"></td>
+                <td class="data-cell" data-bind="text: type"></td>
+                <td class="data-cell" data-bind="text: quantity"></td>
+                <td class="data-cell" data-bind="text: amount"></td>
+                <td class="data-cell" data-bind="text: transactionDate"></td>
+                <td class="data-cell" data-bind="text: transactionDateTime"></td>
+              </tr>
+            </tbody>
+          </table>
+
+
+
+
+
+
+        </div>
+      </oj-bind-if>
+
+      <!-- Update Stock -->
+      <oj-bind-if test="[[selectedTab() === 'my-portfolio']]">
+        <div class="oj-hybrid-padding oj-sm-padding-4x oj-flex oj-sm-justify-content-center">
+          <div style="max-width:800px; width:100%;">
+            <h1 class="oj-text-center">Portfolio</h1>
+
+            <!-- Total Holdings Box -->
+            <div class="oj-panel oj-sm-margin-4x oj-flex oj-sm-justify-content-space-between oj-sm-align-items-center"
+              style="padding:24px; background-color:#f0f8ff;">
+              <div>
+                <h2 data-bind="style: { color: profitColor }">
+                  <!-- ₹<span data-bind="text: totalHoldings"></span> -->
+                </h2>
+                <h2>Total Holdings</h2>
+              </div>
+              <oj-bind-dom>
+                <div style="text-align: right;">
+                  <h2>₹<span data-bind="text: totalHoldings"></span></h2>
+                  <!-- <p><strong>Change:</strong></p> -->
+                  <!-- <p data-bind="style: { color: profitColor }, text: profitPercent().toFixed(2) + '%'"></p> -->
+                </div>
+              </oj-bind-dom>
+            </div>
+            <!-- Portfolio Pie Chart -->
+<div>
+  <oj-chart
+    type="pie"
+    data="[[chartDataProvider]]"
+    animation-on-display="auto"
+    style="max-width: 500px; margin: 0 auto;"
+    legend.renderer="[[legendRenderer]]">
+  </oj-chart>
+</div>
+
+
+            <!-- Stock List -->
+            <div>
+              <oj-bind-for-each data="[[stocks]]">
+                <template>
+                  <div
+                    class="oj-panel oj-sm-margin-2x oj-flex oj-sm-justify-content-space-between oj-sm-align-items-center"
+                    style="padding:12px;">
+
+                    <!-- Left section -->
+                    <div class="oj-flex-item">
+                      <h4 style="margin: 0 0 4px 0; font-size: 16px;">
+                        <oj-bind-text value="[[$current.data.name]]"></oj-bind-text>
+                      </h4>
+                      <p style="margin: 0; font-size: 14px;">
+                        Quantity: <oj-bind-text value="[[$current.data.quantity]]"></oj-bind-text>
+                      </p>
+                      <p style="margin: 0; font-size: 14px;">
+                        Current Price: ₹<oj-bind-text value="[[$current.data.price]]"></oj-bind-text>
+                      </p>
+                    </div>
+
+                    <!-- Right section -->
+                    <div class="oj-flex-item" style="text-align: right;">
+                      <p style="margin: 0; font-size: 14px;"><strong>Total Value:</strong></p>
+                      <p style="margin: 0; font-size: 14px;">
+                        ₹<oj-bind-text value="[[$current.data.quantity * $current.data.price]]"></oj-bind-text>
+                      </p>
+                      <oj-c-button label="Sell" on-oj-action="[[() => promptSellStock($current.data)]]"
+                        style="margin-top: 4px; font-size: 12px;"></oj-c-button>
+                    </div>
+                  </div>
+                </template>
+              </oj-bind-for-each>
+            </div>
+
+            <!-- Sell Stock Dialog -->
+            <oj-c-dialog id="sellDialog" dialog-title="Sell Stock" opened="{{isSellDialogOpened}}">
+              <div slot="body">
+                <h1 data-bind="text:selectedStock()?.name"></h1>
+                <p>
+                  Selling: <oj-bind-text value="[[selectedStock()?.name]]"></oj-bind-text>
+                </p>
+                <p>
+                  Current Price: ₹<oj-bind-text value="[[selectedStock()?.price]]"></oj-bind-text>
+                </p>
+
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 16px;">
+                  <button
+                    data-bind="click: function() { if (sellQuantity() > 1) sellQuantity(sellQuantity() - 1); }">−</button>
+
+
+                  <span data-bind="text: sellQuantity"></span>
+
+                  <button data-bind="click: function() { sellQuantity(sellQuantity() + 1); }">+</button>
+
+                </div>
+
+                <p style="margin-top: 10px;" data-bind="text: 'Total Sale Value: ₹' + totalSellValue()"></p>
+
+              </div>
+              <div slot="footer">
+                <oj-c-button label="Confirm Sale" on-oj-action="[[confirmSellStock]]"></oj-c-button>
+                <oj-c-button label="Cancel" on-oj-action="[[() => isSellDialogOpened(false)]]"></oj-c-button>
+              </div>
+            </oj-c-dialog>
+          </div>
+        </div>
+      </oj-bind-if>
+
+      <oj-bind-if test="[[selectedTab() === 'my-profile']]">
+        <div class="oj-flex oj-sm-padding-4x profile-container">
+          <div class="oj-flex-item oj-sm-12 oj-md-10 profile-card">
+            <div class="oj-flex oj-sm-justify-content-space-between oj-sm-align-items-center profile-header">
+              <h2>Profile Information</h2>
+              <button class="profile-btn" data-bind="click: saveProfile, text: isEditable() ? 'Save' : 'Edit'"></button>
+            </div>
+
+            <div class="profile-field">
+              <label>PAN Number</label>
+              <input type="text" data-bind="value: pan, enable: isEditable" />
+            </div>
+
+            <div class="profile-field">
+              <label>Email / Username</label>
+              <input type="email" data-bind="value: email, enable: isEditable" />
+            </div>
+
+            <div class="profile-field">
+              <label>Phone Number</label>
+              <input type="tel" data-bind="value: phone, enable: isEditable" />
+            </div>
+
+            <div class="profile-field">
+              <label>Password</label>
+              <input type="password" data-bind="value: password, visible: !isEditable()" disabled />
+              <div class="password-edit" data-bind="visible: isEditable">
+                <input type="password" placeholder="New Password" data-bind="value: newPassword" />
+                <input type="password" placeholder="Re-enter New Password" data-bind="value: confirmPassword" />
+              </div>
+            </div>
+
+            <div class="profile-field">
+              <label>First Name</label>
+              <input type="text" data-bind="value: firstName, enable: isEditable" />
+            </div>
+
+            <div class="profile-field">
+              <label>Last Name</label>
+              <input type="text" data-bind="value: lastName, enable: isEditable" />
+            </div>
+          </div>
+        </div>
+
+
+      </oj-bind-if>
+
+
+    </div>
+  </div>
+</div>

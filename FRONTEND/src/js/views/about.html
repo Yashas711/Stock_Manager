@@ -1,0 +1,105 @@
+<div class="login-wrapper">
+<div class="auth-container" >
+  <!-- Login Box -->
+  <div id="loginBox" class="auth-box" data-bind="visible: isLoginVisible">
+    <h2>Login</h2>
+    <input type="email" placeholder="Email" data-bind="value: loginEmail" />
+    <input type="password" placeholder="Password" data-bind="value: loginPassword" />
+    <button data-bind="click: handleLogin">Login</button>
+    <p class="switch-link">Don't have an account? <a data-bind="click: showSignUp">Create one</a></p>
+  </div>
+
+  <!-- Sign-Up Box -->
+  <div id="signUpBox" class="auth-box" data-bind="visible: isSignUpVisible">
+    <h2>Sign Up</h2>
+    <input type="text" placeholder="First Name" data-bind="value: firstName" />
+    <input type="text" placeholder="Last Name" data-bind="value: lastName" />
+    <input type="email" placeholder="Email ID" data-bind="value: signUpEmail" />
+    <input type="password" placeholder="Create Password" data-bind="value: signUpPassword" />
+    <input type="tel" placeholder="Phone Number" data-bind="value: phoneNumber" />
+    <input type="text" placeholder="PAN Number" data-bind="value: panNumber" />
+    <button data-bind="click: handleSignUp">Sign Up</button>
+    <p class="switch-link">Already have an account? <a data-bind="click: showLogin">Login</a></p>
+  </div>
+</div>
+</div>
+<style>
+  .login-wrapper{
+ background-image: url("../../css/images/bg1.jpg");    /* Background color for center */
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  .auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.auth-box {
+  background: #fff;
+  padding: 30px 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.auth-box h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.auth-box input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.auth-box button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0078d4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.auth-box button:hover {
+  background-color: #005ea2;
+}
+
+.switch-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.switch-link a {
+  color: #0078d4;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.switch-link a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
+</style>

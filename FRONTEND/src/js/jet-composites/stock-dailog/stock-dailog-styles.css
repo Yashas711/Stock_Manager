@@ -1,0 +1,22 @@
+/* This file is where css selectors for the component go.
+   There will be hard coded properties and properties controlled by variables, for example
+
+   stock-dailog .stock-dailog-value-text {
+   color: var(--stock-dailog-value-text-color);
+   display: inline-block;
+	 }
+*/
+
+stock-dailog:not(.oj-complete){
+  visibility: hidden;
+}
+
+stock-dailog{
+	min-height: 50px;
+	width: 50px;
+}
+
+stock-dailog[hidden]
+{
+  display: none;
+}

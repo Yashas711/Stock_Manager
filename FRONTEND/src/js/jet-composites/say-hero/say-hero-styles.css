@@ -1,0 +1,52 @@
+/* This file is where css selectors for the component go.
+   There will be hard coded properties and properties controlled by variables, for example
+
+   say-hero .say-hero-value-text {
+   color: var(--say-hero-value-text-color);
+   display: inline-block;
+	 }
+*/
+.landing-hero {
+  background-image: url('../../../css/images/say-hero-bg.jpg');
+  /* Replace with your preferred image */
+  background-size: cover;
+  background-position: center;
+  height: 250px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-overlay {
+  background-color: rgba(0, 0, 0, 0.281);
+  /* Dark overlay for contrast */
+  border-radius: 15px;
+  text-align: center;
+}
+
+.landing-quote {
+  color: #fff;
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+.landing-quote span {
+  padding: 1em;
+  font-size: 1.2em;
+  font-weight: 300;
+  display: block;
+}
+
+say-hero:not(.oj-complete) {
+  visibility: hidden;
+}
+
+say-hero {
+  min-height: 50px;
+  width: 50px;
+}
+
+say-hero[hidden] {
+  display: none;
+}

@@ -1,0 +1,81 @@
+<!--
+  Copyright (c) 2015, 2025, Oracle and/or its affiliates.
+  Licensed under The Universal Permissive License (UPL), Version 1.0
+  as shown at https://oss.oracle.com/licenses/upl/
+
+-->
+<!-- <p><oj-bind-text value="[[messageText]]"></oj-bind-text></p> -->
+<!-- <div data-bind="foreach: stocks">
+  <div class="stock-card" data-bind="click: function() { isOpened(true); }">
+    <img class="stock-logo" data-bind="attr: { src: logo, alt: name }" />
+    <div class="stock-details">
+      <div class="stock-name" data-bind="text: name"></div>
+      <div class="stock-price" data-bind="text: '₹' + price"></div>
+    </div>
+  </div> -->
+
+<!-- Dialog specific to this stock -->
+<!-- <oj-c-dialog opened="[[isOpened]]" dialog-title="Stock Details">
+    <div slot="body">
+      <p data-bind="text: 'Details for ' + name"></p>
+      <p data-bind="text: 'Current Price: ₹' + price"></p>
+    </div>
+    <div slot="footer">
+      <oj-c-button label="Close" on-oj-action="[[function() { isOpened(false); }]]"></oj-c-button>
+    </div>
+  </oj-c-dialog>
+</div> -->
+
+
+
+<h1>Top Stocks of India</h1>
+<div data-bind="foreach: stocks" class="card-container">
+  <div class="stock-card" data-bind="click: $parent.openDialog">
+    <div class="stock-details">
+      <div class="stock-header">
+        <div class="stock-name" data-bind="text: name"></div>
+        <div class="stock-metrics">
+          <div class="metric">
+            <div class="metric-value" data-bind="text: '₹' + currentPrice"></div>
+            <div class="metric-label">Current Price</div>
+          </div>
+          <div class="metric">
+            <div class="metric-value"
+              data-bind="text: ((currentPrice - listedPrice) / listedPrice * 100).toFixed(2) + '%'">
+            </div>
+            <div class="metric-label">Change</div>
+          </div>
+        </div>
+      </div>
+      <div class="stock-listed-price" data-bind="text: 'Listed Price: ₹' + listedPrice"></div>
+    </div>
+  </div>
+</div>
+
+<oj-c-dialog opened="[[isDialogOpen]]" dialog-title="Stock Details">
+  <div slot="body" data-bind="with: selectedStock">
+    <h3 data-bind="text: name"></h3>
+
+    <ul style="list-style: none; padding: 0; margin: 0;">
+      <li><strong>ID:</strong> <span data-bind="text: id"></span></li>
+      <li><strong>Listed Price:</strong> ₹<span data-bind="text: listedPrice"></span></li>
+      <li><strong>Current Price:</strong> ₹<span data-bind="text: currentPrice"></span></li>
+      <li><strong>Stock Exchange:</strong> <span data-bind="text:"></span></li>
+    </ul>
+
+    <div style="display: flex; align-items: center; gap: 10px; margin-top: 16px;">
+      <oj-c-button label="−"
+        on-oj-action="[[function() { if ($parent.unitsToBuy() > 1) $parent.unitsToBuy($parent.unitsToBuy() - 1); }]]"></oj-c-button>
+      <span data-bind="text: $parent.unitsToBuy"></span>
+      <oj-c-button label="+"
+        on-oj-action="[[function() { $parent.unitsToBuy($parent.unitsToBuy() + 1); }]]"></oj-c-button>
+    </div>
+
+    <p style="margin-top: 10px;" data-bind="text: 'Total Price: ₹' + $parent.totalPrice().toFixed(2)"></p>
+  </div>
+
+  <div slot="footer">
+    <oj-c-button label="Buy" on-oj-action="[[buyStock]]"></oj-c-button>
+    <oj-c-button label="Close" on-oj-action="[[close]]"></oj-c-button>
+  </div>
+</oj-c-dialog>
