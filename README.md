@@ -19,7 +19,7 @@
 - Track transaction history
 
 ### 📈 Stock Features
-- Real-time/randomized price fluctuations
+- Real-time-stimulation/randomized price fluctuations
 
 ---
 
